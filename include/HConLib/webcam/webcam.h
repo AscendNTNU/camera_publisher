@@ -249,8 +249,7 @@ static void BayerToRGB(int width, int height, unsigned char *src, unsigned char 
   }
 }
 
- 
-int webcam_capture_image(unsigned char* rgb_buffer)
+int webcam_capture_image(unsigned char* rgb_buffer, unsigned char** compressed_buffer, unsigned int* compressed_buffer_size)
 {
   
   fd_set fds;
@@ -260,8 +259,6 @@ int webcam_capture_image(unsigned char* rgb_buffer)
 
   struct v4l2_buffer buf;
   unsigned int i;
-
-  
 
   CLEAR(buf);
 
@@ -309,9 +306,11 @@ int webcam_capture_image(unsigned char* rgb_buffer)
     }
 
 
-
-
   assert(buf.index < _webcam_n_buffers);
+
+
+  *compressed_buffer = (unsigned char*)_webcam_buffers[buf.index].start;
+  *compressed_buffer_size = buf.length;
 
   //process_image(buffers[buf.index].start, buf.bytesused);
 
@@ -361,6 +360,7 @@ int webcam_capture_image(unsigned char* rgb_buffer)
   
   return 0;
 }
+
 
 void webcam_init_full_name(int width, int height, const char* deviceName, int mode = WEBCAM_MODE_JPEG, bool upsideDown = false) {
   memcpy(_webcam_name, deviceName, strlen(deviceName));
