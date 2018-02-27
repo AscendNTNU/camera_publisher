@@ -48,7 +48,7 @@ int main(int argc, char** argv){
   private_handle.param<bool>("publish_compressed_jpeg", publish_compressed_jpeg, false);
   
   image_transport::Publisher pub = it.advertise(topic_name, 1);
-  ros::Publisher pub_compressed = private_handle.advertise<sensor_msgs::CompressedImage>(topic_name + "/compressed_image", 1);
+  ros::Publisher pub_compressed = private_handle.advertise<sensor_msgs::CompressedImage>(device_name + "/compressed_image", 1);
 
   if(input_format == "jpeg"){
     webcam_init_full_name(w, h, device_name.c_str());
