@@ -1,4 +1,5 @@
 <launch>
+	<node pkg="camera_publisher" type="set_camera_parameters.sh" name="camera_parameter_setter" />
 	<node pkg="camera_publisher" type="camera_publisher_node" name="camera_publisher1" output="screen">
 
 	      <param name="device_name" type="string" value="/dev/video1" />

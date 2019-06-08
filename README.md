@@ -11,3 +11,8 @@ To also publish compressed jpeg images, you can add the following line to the la
 ```xml
 <param name="publish_compressed_jpeg" type="bool" value="true" />
 ```
+
+## dependencies
+
++ libv4l-dev
++ v4l-utils
