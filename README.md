@@ -13,6 +13,9 @@ To also publish compressed jpeg images, you can add the following line to the la
 ```
 
 ## dependencies
+These can all be installed using apt. (Tested on Ubuntu 18.04)
 
 + libv4l-dev
 + v4l-utils
++ libturbojpeg
++ libturbojpeg0-dev
