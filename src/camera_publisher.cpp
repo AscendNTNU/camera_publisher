@@ -14,9 +14,13 @@
 int main(int argc, char** argv){
   ros::init(argc, argv, "camera_publisher_node");
 
+
   ros::NodeHandle nh;
   image_transport::ImageTransport it(nh);
   ros::NodeHandle private_handle("~");
+
+  ros::Rate publish_rate{10};
+
 
   if(!private_handle.hasParam("device_name")){
     ROS_FATAL("device_name needs to be specified (e.g. /dev/video0)");
@@ -151,6 +155,10 @@ int main(int argc, char** argv){
     output_image.data = std::vector<unsigned char> (output_buffer, output_buffer + (out_w*out_h*3));
     pub.publish(output_image);
 
+
+    publish_rate.sleep();
+
+
     if(publish_compressed_jpeg) {
         sensor_msgs::CompressedImage compressed_output_image;
         compressed_output_image.header.stamp = ros::Time::now();
@@ -159,6 +167,7 @@ int main(int argc, char** argv){
         memcpy(&compressed_output_image.data[0], compressed_buffer, compressed_buffer_size);
         pub_compressed.publish(compressed_output_image);
     }
+
 
   }
 
